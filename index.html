@@ -1,0 +1,177 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Temperaturanzeige</title>
+<meta name="author" content="dieter">
+<meta name="editor" content="html-editor phase 5">
+<link rel="stylesheet" href="style.css">
+<script>
+  var d = document;
+  d.addEventListener('DOMContentLoaded', () => {
+    Parameter(), renew();
+    d.querySelector('#safe').addEventListener('click', () => {
+      let formData = new FormData();
+      formData.append(`Temp`, Array.from(d.querySelectorAll('input[type=number]')).map(x => x.value != 0 ? x.value : 0));
+      send(formData);
+    });
+  }, setInterval(renew, 30000), Parameter());
+
+  function Parameter () {
+    fetch(`/anlage`).then(resp => {
+      return resp.json();
+    })
+    .then((kreise) => {
+      for (var i = 0; i < 5; i++) {
+        d.querySelector(`kreis${i+1}`).innerHTML = kreise[i];
+        d.querySelector(`[name=normal${i+1}]`).value = kreise[i*2+5].toFixed(1);
+        d.querySelector(`[name=spar${i+1}]`).value = kreise[i*2+6].toFixed(1);
+      }
+    });
+  }
+
+  function renew() {
+    fetch(`/werte2`).then(resp => {
+      return resp.json();
+    })
+    .then((wert) => {
+      for (var i = 0; i < 6; i++) {
+        d.querySelector(`vst${i+1}`).innerHTML = wert[i].toFixed(0);
+        d.querySelector(`wat${i+1}`).innerHTML = wert[i+6].toFixed(1);
+        if ( i != 5) {
+          d.querySelector(`zit${i+1}`).innerHTML = wert[i+12].toFixed(1);
+        }
+      }
+    });
+  }
+
+  function send(arg) {
+    fetch('/werte1', {
+      method: 'post',
+      body: arg
+    }
+    ).then(resp => {
+        return resp.json();
+      }
+    ).then(array => {
+      alert("Then(array)" + array);
+//          if (array.length > schalten/2*kreise) {
+//            array.forEach((v, i) => {
+//              if (i < schalten*kreise) d.querySelector(`[name=sz${i}]`).value = v;
+//              if (i == schalten*kreise) getActive(v);
+//              if (i > schalten*kreise) {
+//                for (var j = 0; j < 7; j++) {
+//                  let el = d.getElementsByName(`c${i-schalten*kreise-1}`)[j];
+//                  el.value != v[j] ? el.checked = false : el.checked = true;
+//                }
+//              }
+//            }
+//            );
+//          } else {
+//   alert("Then else");
+//             getActive(array);
+//          }
+    }
+    );
+  }
+
+</script>
+</head>
+  <body text="#000000" bgcolor="#FFFFFF" link="#FF0000" alink="#FF0000" vlink="#FF0000">
+  <h1 class = "ueberschrift">Heizungsteuerung</h1>
+
+  <div class="container">
+  <table >
+    <tr>
+      <td>
+        <table class='kreislauf' >
+          <tr>
+            <th colspan='3'><kreis1>0</kreis1></th>
+          </tr>
+        <tr><td width=50%>Ventilstellung</td><td width=25% align="right"><vst1>0</vst1></td><td width=25%> %</td></tr>
+        <tr><td>R&uuml;cklauf</td><td align="right"><wat1>0</wat1></td><td>&deg;</td></tr>
+        <tr><td>Zimmertemperatur</td><td align="right"><zit1>0</zit1></td><td>&deg;</td></tr>
+        <tr><td>Normaltemperatur</td><td align="right"><input type="number" name="normal1" min ="16" Step="0.1" max="23" value=0 size=3></td><td> &deg;</td></tr>
+        <tr><td>Spartemperatur</td><td align="right"><input type="number" name="spar1" name="normal1" min ="16" Step="0.1" max="23" value=0 size=3></td><td> &deg;</td></tr>
+        </table>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <table class='kreislauf'>
+          <tr>
+            <th colspan='3'><kreis2>0</kreis2></th>
+          </tr>
+        <tr><td width=50%>Ventilstellung</td><td width=25% align="right"><vst2>0</vst2></td><td width=25%> %</td></tr>
+        <tr><td>R&uuml;cklauf</td><td align="right"><wat2>0</wat2></td><td>&deg;</td></tr>
+        <tr><td>Zimmertemperatur</td><td align="right"><zit2>0</zit2></td><td>&deg;</td></tr>
+       <tr><td>Normaltemperatur</td><td align="right"><input type="number" name="normal2" name="normal1" min ="16" Step="0.1" max="23" value=0 size=3></td><td> &deg;</td></tr>
+        <tr><td>Spartemperatur</td><td align="right"><input type="number" name="spar2" name="normal1" min ="16" Step="0.1" max="23" value=0 size=3></td><td> &deg;</td></tr>
+        </table>
+      </td>
+      <td>&nbsp</td>
+      <td>
+        <table class='kreislauf'>
+          <tr>
+            <th colspan='3'><kreis3>0</kreis3></th>
+          </tr>
+        <tr><td width=50%>Ventilstellung</td><td width=25% align="right"><vst3>0</vst3></td><td width=25%> %</td></tr>
+        <tr><td>R&uuml;cklauf</td><td align="right"><wat3>0</wat3></td><td>&deg;</td></tr>
+        <tr><td>Zimmertemperatur</td><td align="right"><zit3>0</zit3></td><td>&deg;</td></tr>
+        <tr><td>Normaltemperatur</td><td align="right"><input type="number" name="normal3" name="normal1" min ="16" Step="0.1" max="23" value=0 size=3></td><td> &deg;</td></tr>
+        <tr><td>Spartemperatur</td><td align="right"><input type="number" name="spar3" name="normal1" min ="16" Step="0.1" max="23" value=0 size=3></td><td> &deg;</td></tr>
+        </table>
+      </td>
+    </tr>
+    <tr></tr>
+    <tr>
+      <td>
+        <table class='kreislauf' >
+          <tr>
+            <th colspan='3'><kreis4>0</kreis4></th>
+          </tr>
+        <tr><td width=50%>Ventilstellung</td><td width=25% align="right"><vst4>0</vst4></td><td width=25%> %</td></tr>
+        <tr><td>R&uuml;cklauf</td><td align="right"><wat4>0</wat4></td><td>&deg;</td></tr>
+        <tr><td>Zimmertemperatur</td><td align="right"><zit4>0</zit4></td><td>&deg;</td></tr>
+        <tr><td>Normaltemperatur</td><td align="right"><input type="number" name="normal4" name="normal1" min ="16" Step="0.1" max="23" value=0 size=3></td><td> &deg;</td></tr>
+        <tr><td>Spartemperatur</td><td align="right"><input type="number" name="spar4" name="normal1" min ="16" Step="0.1" max="23" value=0 size=3></td><td> &deg;</td></tr>
+        </table>
+      </td>
+      <td>&nbsp;</td>
+      <td>
+        <table class='kreislauf'>
+          <tr>
+            <th colspan='3'><kreis5>0</kreis5></th>
+          </tr>
+        <tr><td width=50%>Ventilstellung</td><td width=25% align="right"><vst5>0</vst5></td><td width=25%> %</td></tr>
+        <tr><td>R&uuml;cklauf</td><td align="right"><wat5>0</wat5></td><td>&deg;</td></tr>
+        <tr><td>Zimmertemperatur</td><td align="right"><zit5>0</zit5></td><td>&deg;</td></tr>
+        <tr><td>Normaltemperatur</td><td align="right"><input type="number" name="normal5" name="normal1" min ="16" Step="0.1" max="23" value=0 size=3></td><td> &deg;</td></tr>
+        <tr><td>Spartemperatur</td><td align="right"><input type="number" name="spar5" name="normal1" min ="16" Step="0.1" max="23" value=0 size=3></td><td> &deg;</td></tr>
+        </table>
+      </td>
+      <td>&nbsp</td>
+      <td>
+        <table class='kreislauf'>
+          <tr>
+            <th colspan='3'>Vorlauf</th>
+          </tr>
+        <tr><td width=50%>Ventilstellung</td><td width=25% align="right"><vst6>0</vst6></td><td width=25%> %</td></tr>
+        <tr><td>Vorlauf</td><td align="right"><wat6>0</wat6></td><td>&deg;</td></tr>
+        <tr></tr><tr></tr><tr></tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  </div>
+      <button style="width: 18em; font-weigth: bold" id="safe">Speichern</button>
+      <div><div style="float: left;position: relative; margin-right:1em;">
+      <button style="width: 18em; font-weigth: bold" id="">Tagschaltung</button>
+      </div>&nbsp;&nbsp;&nbsp;<div style="float: left;position: relative; margin-left:1em;">
+      <button style="width: 18em; font-weigth: bold" id="">Sommerzeit</button>
+      </div></div>
+  <a href="WochenZeitSchaltUhr.html"><button style="width: 18em; font-weigth: bold" >Zur Zeitschaltung</button></a>
+
+
+</div>
+</body>
+</html>

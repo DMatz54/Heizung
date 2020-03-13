@@ -1,0 +1,45 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Wassertemperaturen</title>
+<meta name="author" content="dieter">
+<meta name="editor" content="html-editor phase 5">
+<link rel="stylesheet" href="style.css">
+<script>
+  var d = document;
+  d.addEventListener('DOMContentLoaded', () => {
+    Parameter();
+  });
+
+  function Parameter () {
+    fetch(`/werte`).then(resp => {
+      return resp.json();
+    })
+    .then((wert) => {
+      for (var i = 0; i < 6; i++) {
+        d.querySelector(`data[i]`).innerHTML = wert[i];
+      }
+    });
+  }
+
+
+
+</script>
+</head>
+  <body text="#000000" bgcolor="#FFFFFF" link="#FF0000" alink="#FF0000" vlink="#FF0000">
+  <h1 class = "ueberschrift">Wassertemperaturen</h1>
+
+  <table >
+    <tr>
+      <th>Kreis</th><th>Temperatur</th>
+    </tr>
+    <tr><td>Bad</td><td align="right"><temp>0</temp></td><td>&deg;C</td></tr>
+    <tr><td>K&uuml;che</td><td align="right"><temp>0</temp></td><td>&deg;C</td></tr>
+    <tr><td>Diele</td><td align="right"><temp>0</temp></td><td>&deg;C</td></tr>
+    <tr><td>Wohnen1</td><td align="right"><temp>0</temp></td><td>&deg;C</td></tr>
+    <tr><td>Wohnen2</td><td align="right"><temp>0</temp></td><td>&deg;C</td></tr>
+    <tr><td>Vorlauf</td><td align="right"><temp>0</temp></td><td>&deg;C</td></tr>
+  </table>
+</body>
+</html>

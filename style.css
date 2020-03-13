@@ -1,0 +1,129 @@
+body{
+  font-family:sans-serif;
+  background-color:#87cefa;
+  display:flex;
+  flex-flow:column;
+  align-items:center
+  }
+h1,h2{
+  color:#e1e1e1;
+  text-shadow:2px 2px 2px black
+  }
+li{
+  background-color:#feb1e2;
+  list-style-type:none;
+  margin-bottom:10px;
+  padding:2px 5px 1px 0;
+  box-shadow:5px 5px 5px rgba(0,0,0,0.7)
+  }
+a:nth-child(1),li:nth-last-child(1) b{
+  background-color:#8f05a5;
+  font-weight:bold;
+  color:white;
+  text-decoration:none;
+  padding:2px 5px;
+  text-shadow:2px 2px 1px black
+  }
+input{
+  height:1.2em;
+  font-size:1em;
+  text-align: right
+  }
+h1+main{
+  display:flex
+  }
+section{
+  display:flex;
+  flex-direction:column;
+  padding:.2em
+  }
+#left{
+  align-items:flex-end;
+  text-shadow:.5px .5px 1px #757474
+  }
+.note{
+  background-color:#fecdee;
+  padding:.5em;
+  margin-top:1em;
+  text-align:center;
+  max-width:320px;
+  border-radius:.5em
+  }
+[type=submit]{
+  height:1.7em;
+  background-color:#7bff97;
+  font-size:1em
+  }
+[value*=Format]{
+  margin-top:1em;
+  box-shadow:5px 5px 5px rgba(0,0,0,0.7)
+  }
+button{
+  height:1.7em;
+  width:130px;
+  background-color:#7bff97;
+  font-size:1em;
+  margin-top:1em;
+  box-shadow:5px 5px 5px rgba(0,0,0,0.7)
+  }
+form [title]{
+  background-color:skyblue;
+  font-size:16px;
+  width:125px
+  }
+.kopf{
+  height: 5em;
+  }
+section {
+  position: absolute;
+  right: .3em;
+  align-items: center;
+  background-color: black;
+  width: 140px;
+  height: 50px;
+  border: .15em solid #909294;
+  box-shadow: 5px 10px 5px #5a5a5b;
+  border-radius: .2em;
+  }
+.container{
+  position:relatve;
+  font-size: 1em;
+'  max-width: 724px;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  }
+.ventil{
+  font-weight:bold;
+  margin: 0.1em
+  }
+.kreislauf{
+  float: left;
+  position: relative;
+  width: 15em;
+  height: 13.5em;
+  border: solid 1px #3F70ED;
+  background-color:#BFEFB5;
+  margin: 3px;
+  padding: 0.5em;
+  }
+span{
+  padding: 1px;
+  color: #00ff05;
+  position: relative;
+  top: 0.3em;
+  left: .1em;
+  letter-spacing: .1em;
+  font-weight: bold
+  }
+#zeit {
+  font-size: 1.2em;
+  }
+#datum {
+  font-size: 1em;
+  margin-top: 0.2em;
+  }
+#rechts{
+  text-align: right
+  }

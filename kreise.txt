@@ -1,0 +1,1 @@
+"Bad","Flur","Küche","Wohnen1","Wohnen2"
